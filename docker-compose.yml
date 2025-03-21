@@ -5,20 +5,58 @@ services:
     command: npm run start
     restart: unless-stopped
     ports:
-      - 3000:3000
+      - 3001:3001
     environment:
-      - PORT=3000
+      - PORT=3001
       - HOST=http://realworld.com
       - MONGO_URL=mongodb://api_db:27017/api
     depends_on:
       - api_db
 
+  auth:
+    build: ./auth 
+    container_name: auth
+    command: npm run start
+    restart: unless-stopped
+    ports:
+      - 3002:3002
+    environment:
+      - PORT=3002
+      - HOST=http://realworld.com
+      - MONGO_URL=mongodb://auth_db:27017/auth
+    depends_on:
+      - auth_db
+
+
   api_db:
     image: mongo:latest
-    container_name: api-db
+    container_name: api_db
     volumes:
       - mongodb_api:/data/db
 
+
+  auth_db:
+    image: mongo:latest
+    container_name: auth_db
+    volumes:
+      - mongodb_auth:/data/db
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports: 
+      - 3000:3000
+    restart: unless-stopped
+    command: npm run start
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./frontend/src:/usr/src/app/src
+    environment: 
+      - CHOKIDAR_USE=true
+      
+
 volumes:
   mongodb_api:
+  mongodb_auth: 
   

@@ -20,7 +20,7 @@ const startServer = () => {
     console.log(`Database url ${db}`);
 
     try {
-      const silence = new Kitten({ name: "test" });
+      const silence = new Kitten({ name: "Silence" });
       const result = await silence.save();  // <-- Fix: Use async/await
       console.log("result", result);
     } catch (err) {
