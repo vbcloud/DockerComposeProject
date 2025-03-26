@@ -52,9 +52,8 @@ services:
     tty: true
     volumes:
       - ./frontend/src:/usr/src/app/src
-    environment: 
-      - CHOKIDAR_USE=true
-      
+    
+
 
 volumes:
   mongodb_api:
