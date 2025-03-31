@@ -1,7 +1,7 @@
 server {
     listen 80;
 
-    server_name 34.42.89.22 
+    server_name 34.42.89.22;
 
     location / {
         proxy_pass http://frontend:3000;
